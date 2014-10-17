@@ -95,3 +95,72 @@ TEST( NextdateTest, WeakRobust ) {
 	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, 1, DAY_MAX[FEB] + 1) );
 }
 
+TEST( NextdateTest, StrongRobust ) {
+	
+	// year min-1, month min-1
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MIN - 1, 1) );
+	
+	// year min-1, day min-1
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, 1, DAY_MIN - 1) );
+	
+	// month min-1, day min-1
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, MONTH_MIN - 1, DAY_MIN - 1) );
+	
+	// year min-1, month min-1, day min-1
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MIN - 1, DAY_MIN - 1) );
+	
+	/* ----------------------------------- */
+	
+	// year max+1, month max+1
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MAX + 1, MONTH_MAX + 1, 1) );
+	
+	// year max+1, day max+1
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MAX + 1, 1, DAY_MAX[JAN] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MAX + 1, 1, DAY_MAX[APR] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MAX + 1, 1, DAY_MAX[FEB] + 1) );
+	
+	// month max+1, day max+1
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, MONTH_MAX + 1, DAY_MAX[JAN] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, MONTH_MAX + 1, DAY_MAX[APR] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, MONTH_MAX + 1, DAY_MAX[FEB] + 1) );
+	
+	// year max+1, month max+1, day max+1
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MAX + 1, MONTH_MAX + 1, DAY_MAX[JAN] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MAX + 1, MONTH_MAX + 1, DAY_MAX[APR] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MAX + 1, MONTH_MAX + 1, DAY_MAX[FEB] + 1) );
+
+	/* ----------------------------------- */
+
+	// one max+1, one min-1, one normal
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, MONTH_MAX + 1, DAY_MIN - 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, MONTH_MIN - 1, DAY_MAX[JAN] + 1) );
+	
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MAX + 1, 1, DAY_MIN - 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, 1, DAY_MAX[JAN] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, 1, DAY_MAX[APR] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, 1, DAY_MAX[FEB] + 1) );
+	
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MAX + 1, MONTH_MIN - 1, 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MAX + 1, 1) );
+	
+	// one max+1, two min-1
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MAX + 1, MONTH_MIN - 1, DAY_MIN - 1) );
+	
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MAX + 1, DAY_MIN - 1) );
+	
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MIN - 1, DAY_MAX[JAN] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MIN - 1, DAY_MAX[APR] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MIN - 1, DAY_MAX[FEB] + 1) );
+	
+	// two max+1, one min-1
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MAX + 1, MONTH_MAX + 1, DAY_MIN - 1) );
+	
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MAX + 1, MONTH_MIN - 1, DAY_MAX[JAN] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MAX + 1, MONTH_MIN - 1, DAY_MAX[APR] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MAX + 1, MONTH_MIN - 1, DAY_MAX[FEB] + 1) );
+	
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MAX + 1, DAY_MAX[JAN] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MAX + 1, DAY_MAX[APR] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MAX + 1, DAY_MAX[FEB] + 1) );
+}
+
