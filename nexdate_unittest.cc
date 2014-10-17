@@ -60,3 +60,13 @@ TEST( NextDateTest, WeakNormal_Month_30Days ) {
 	EXPECT_EQ( 20121130, nextdate(2012, NOV, 29) );
 	EXPECT_EQ( 20131201, nextdate(2013, NOV, 30) );
 }
+
+TEST( NextDateTest, WeakNormal_Month_28Days ) {
+	
+	printf( "Month with 28 days: Feb.\n");
+	
+	EXPECT_EQ( 20110216, nextdate(2011, FEB, 15) );
+	EXPECT_EQ( 20120228, nextdate(2012, FEB, 27) );
+	EXPECT_EQ( 20130301, nextdate(2013, FEB, 28) );
+}
+
