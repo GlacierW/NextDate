@@ -29,6 +29,8 @@ extern const int DAY_MAX[MONTH_MAX + 1];
  * return a non-zero 8 digit integer as the next date in the format YYYYMMDD from 19700102 to 20150101, ERR_INVALID_DATE(0) if error occurs
  * Thereby, the input range should be from 19700101 to 20141231
  *
+ * NOTE!! We do not consider the condition that Feb. has 29 days 
+ * 
  * example of usage:
  *  @input  = nextdate( 2001, 1, 1 )
  *  @output = (int)20010102
