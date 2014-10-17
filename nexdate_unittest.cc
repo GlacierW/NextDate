@@ -17,7 +17,7 @@ TEST( NextDateTest, WeakNormal_Month_31Days ) {
 	
 	EXPECT_EQ( 20110316, nextdate(2011, MAR, 15) );
 	EXPECT_EQ( 20120331, nextdate(2012, MAR, 30) );
-	EXPECT_EQ( 20130401, nextdate(2014, MAR, 31) );
+	EXPECT_EQ( 20130401, nextdate(2013, MAR, 31) );
 	
 	EXPECT_EQ( 20110516, nextdate(2011, MAY, 15) );
 	EXPECT_EQ( 20120531, nextdate(2012, MAY, 30) );
@@ -91,8 +91,8 @@ TEST( NextdateTest, WeakRobust ) {
 	
 	// day max + 1 for months with 31/30/28 days
 	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, 1, DAY_MAX[JAN] + 1) );
-	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, 1, DAY_MAX[APR] + 1) );
-	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, 1, DAY_MAX[FEB] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, 4, DAY_MAX[APR] + 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, 2, DAY_MAX[FEB] + 1) );
 }
 
 TEST( NextdateTest, StrongRobust ) {
