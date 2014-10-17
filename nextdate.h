@@ -1,20 +1,33 @@
 #ifndef __NEXTDATE_H__
 #define __NEXTDATE_H__
 
+#define JAN 1
+#define FEB 2
+#define MAR 3
+#define APR 4
+#define MAY 5
+#define JUN 6
+#define JUL 7
+#define AUG 8
+#define SEP 9
+#define OCT 10
+#define NOV 11
+#define DEC 12
+
 #define ERR_INVALID_DATE 0
 
-#define MIN_YEAR 1970
-#define MAX_YEAR 2014
+#define YEAR_MIN 1970
+#define YEAR_MAX 2014
 
-#define MIN_MONTH 1
-#define MAX_MONTH 12
+#define MONTH_MIN 1
+#define MONTH_MAX 12
 
-#define MIN_DAY 1
-extern const int MAX_DAY[MAX_MONTH + 1];
+#define DAY_MIN 1
+extern const int DAY_MAX[MONTH_MAX + 1];
 
 /*
- * return non-zero value as the next date, 0 on error
- * The output is a 8 digit integer in the format YYYYMMDD from 19700101 to 20141231
+ * return a non-zero 8 digit integer as the next date in the format YYYYMMDD from 19700102 to 20150101, ERR_INVALID_DATE(0) if error occurs
+ * Thereby, the input range should be from 19700101 to 20141231
  *
  * example of usage:
  *  @input  = nextdate( 2001, 1, 1 )
