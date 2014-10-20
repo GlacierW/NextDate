@@ -9,8 +9,7 @@ TEST( NextDateTest, BoundaryDate ) {
 
 TEST( NextDateTest, WeakNormal_Month_31Days ) {
 	
-	printf( "Months with 31 days: Jan. Mar. May. Jul. Aug. Oct. Dec.\n");
-	
+	// Months with 31 days: Jan. Mar. May. Jul. Aug. Oct. Dec.
 	EXPECT_EQ( 20110116, nextdate(2011, JAN, 15) );
 	EXPECT_EQ( 20120131, nextdate(2012, JAN, 30) );
 	EXPECT_EQ( 20130201, nextdate(2013, JAN, 31) );
@@ -42,8 +41,7 @@ TEST( NextDateTest, WeakNormal_Month_31Days ) {
 
 TEST( NextDateTest, WeakNormal_Month_30Days ) {
 	
-	printf( "Months with 30 days: Apr. Jun. Sep. Nov. \n");
-
+	// Months with 30 days: Apr. Jun. Sep. Nov.
 	EXPECT_EQ( 20110416, nextdate(2011, APR, 15) );
 	EXPECT_EQ( 20120430, nextdate(2012, APR, 29) );
 	EXPECT_EQ( 20130501, nextdate(2013, APR, 30) );	
@@ -63,14 +61,13 @@ TEST( NextDateTest, WeakNormal_Month_30Days ) {
 
 TEST( NextDateTest, WeakNormal_Month_28Days ) {
 	
-	printf( "Month with 28 days: Feb.\n");
-	
+	// Month with 28 days: Feb.	
 	EXPECT_EQ( 20110216, nextdate(2011, FEB, 15) );
 	EXPECT_EQ( 20120228, nextdate(2012, FEB, 27) );
 	EXPECT_EQ( 20130301, nextdate(2013, FEB, 28) );
 }
 
-TEST( NextdateTest, WeakRobust ) {
+TEST( NextDateTest, WeakRobust ) {
 	
 	// year min - 1
 	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, 1, 1) );
@@ -95,7 +92,7 @@ TEST( NextdateTest, WeakRobust ) {
 	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, 2, DAY_MAX[FEB] + 1) );
 }
 
-TEST( NextdateTest, StrongRobust ) {
+TEST( NextDateTest, StrongRobust ) {
 	
 	// year min-1, month min-1
 	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MIN - 1, 1) );
