@@ -21,5 +21,17 @@ int nextdate( int year, int month, int day ) {
 		return ERR_INVALID_DATE;
 	}
 	
-	return 0xdeadbeef;
+	++n_day;
+	
+	if( n_day > DAY_MAX[month] ) {
+		n_day = DAY_MIN;
+		++n_month;
+	}
+		
+	if( n_month > MONTH_MAX ) {
+		n_month = MONTH_MIN;
+		++n_year;
+	}
+	
+	return (n_year * 10000) + (n_month * 100) + (n_day);
 }
