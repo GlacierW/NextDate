@@ -11,11 +11,11 @@ Software testing example with TDD problem: NextDate
 # Execute the testing
 #####
 1. make
-2. ./gtest_nextdate
+2. ./gtest_nextdate --gtest_filter=NextDateSpecTest.*
 
 #####
 # Generate coverage report
 #####
-1. ./gtest_nextdate
-2. gcov gtest_nextdate.cc
+1. ./gtest_nextdate --gtest_filter=NextDateCodeTest.CodeCoverage/(C0 | C1 | C2 | MCDC)/
+2. gcov -b -c gtest_nextdate.cc
 3. refer to the nextdate.cc.gcov for the detail report 

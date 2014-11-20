@@ -2,12 +2,12 @@
 
 CPP       = g++
 CC        = gcc
-OBJ       = gtest_main.o nextdate.o nexdate_unittest.o
-LINKOBJ   = gtest_main.o nextdate.o nexdate_unittest.o
+OBJ       = gtest_main.o nextdate.o nextdate_unittest.o
+LINKOBJ   = gtest_main.o nextdate.o nextdate_unittest.o
 LINKFLAGS = -lgtest -pthread -lgcov
 BIN       = gtest_nextdate
-CXXFLAGS  = -Wall -O2 -fprofile-arcs -ftest-coverage
-CFLAGS    = -Wall -O2 -fprofile-arcs -ftest-coverage
+CXXFLAGS  = -Wall -fprofile-arcs -ftest-coverage
+CFLAGS    = -Wall -fprofile-arcs -ftest-coverage
 RM        = rm -f
 GCOV_FILE = *.gcno *.gcda *.gcov
 

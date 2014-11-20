@@ -10,16 +10,8 @@ int nextdate( int year, int month, int day ) {
 		n_day   = day;
 	
 	// validate year, month, and day
-	if( 
-		year  < YEAR_MIN
-	||	month < MONTH_MIN
-	||	day   < DAY_MIN
-	||	year  > YEAR_MAX
-	||	month > MONTH_MAX
-	||	day   > DAY_MAX[month]
-	) {
+	if( year  < YEAR_MIN || month < MONTH_MIN || day < DAY_MIN || year > YEAR_MAX || month > MONTH_MAX || day > DAY_MAX[month] ) 
 		return ERR_INVALID_DATE;
-	}
 	
 	++n_day;
 	

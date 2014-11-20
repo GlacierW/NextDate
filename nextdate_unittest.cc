@@ -2,12 +2,12 @@
 #include <gtest/gtest.h>
 #include "nextdate.h"
 
-TEST( NextDateTest, BoundaryDate ) {
+TEST( NextDateSpecTest, BoundaryDate ) {
 	EXPECT_EQ( 19700102, nextdate( YEAR_MIN, MONTH_MIN, DAY_MIN ) );
 	EXPECT_EQ( 20150101, nextdate( YEAR_MAX, MONTH_MAX, DAY_MAX[MONTH_MAX] ) );
 }
 
-TEST( NextDateTest, WeakNormal_Month_31Days ) {
+TEST( NextDateSpecTest, WeakNormal_Month_31Days ) {
 	
 	// Months with 31 days: Jan. Mar. May. Jul. Aug. Oct. Dec.
 	EXPECT_EQ( 20110116, nextdate(2011, JAN, 15) );
@@ -39,7 +39,7 @@ TEST( NextDateTest, WeakNormal_Month_31Days ) {
 	EXPECT_EQ( 20140101, nextdate(2013, DEC, 31) );
 }
 
-TEST( NextDateTest, WeakNormal_Month_30Days ) {
+TEST( NextDateSpecTest, WeakNormal_Month_30Days ) {
 	
 	// Months with 30 days: Apr. Jun. Sep. Nov.
 	EXPECT_EQ( 20110416, nextdate(2011, APR, 15) );
@@ -59,7 +59,7 @@ TEST( NextDateTest, WeakNormal_Month_30Days ) {
 	EXPECT_EQ( 20131201, nextdate(2013, NOV, 30) );
 }
 
-TEST( NextDateTest, WeakNormal_Month_28Days ) {
+TEST( NextDateSpecTest, WeakNormal_Month_28Days ) {
 	
 	// Month with 28 days: Feb.	
 	EXPECT_EQ( 20110216, nextdate(2011, FEB, 15) );
@@ -67,7 +67,7 @@ TEST( NextDateTest, WeakNormal_Month_28Days ) {
 	EXPECT_EQ( 20130301, nextdate(2013, FEB, 28) );
 }
 
-TEST( NextDateTest, WeakRobust ) {
+TEST( NextDateSpecTest, WeakRobust ) {
 	
 	// year min - 1
 	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, 1, 1) );
@@ -92,7 +92,7 @@ TEST( NextDateTest, WeakRobust ) {
 	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, 2, DAY_MAX[FEB] + 1) );
 }
 
-TEST( NextDateTest, StrongRobust ) {
+TEST( NextDateSpecTest, StrongRobust ) {
 	
 	// year min-1, month min-1
 	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MIN - 1, 1) );
@@ -161,3 +161,39 @@ TEST( NextDateTest, StrongRobust ) {
 	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MAX + 1, DAY_MAX[FEB] + 1) );
 }
 
+TEST( NextDateCodeTest, CodeCoverageC0 ) {
+    EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MAX + 1, DAY_MAX[FEB] + 1) );
+	EXPECT_EQ( 20140101, nextdate(2013, DEC, 31) );
+}
+
+TEST( NextDateCodeTest, CodeCoverageC1 ) {
+    EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MAX + 1, DAY_MAX[FEB] + 1) );
+	EXPECT_EQ( 20121130, nextdate(2012, NOV, 29) );
+	EXPECT_EQ( 20131201, nextdate(2013, NOV, 30) );
+	EXPECT_EQ( 20140101, nextdate(2013, DEC, 31) );
+}
+
+TEST( NextDateCodeTest, CodeCoverageC2 ) {
+
+    // same as CodeCoverageC1 since no loop in code
+    EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, MONTH_MAX + 1, DAY_MAX[FEB] + 1) );
+	EXPECT_EQ( 20121130, nextdate(2012, NOV, 29) );
+	EXPECT_EQ( 20131201, nextdate(2013, NOV, 30) );
+	EXPECT_EQ( 20140101, nextdate(2013, DEC, 31) );
+
+}
+
+TEST( NextDateCodeTest, CodeCoverageMCDC ) {
+
+    // for the 1st branch
+    EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MIN - 1, 1, 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, MONTH_MIN - 1, 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, 1, DAY_MIN - 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(YEAR_MAX + 1, 1, 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, MONTH_MAX + 1, 1) );
+	EXPECT_EQ( ERR_INVALID_DATE, nextdate(2000, 2, DAY_MAX[FEB] + 1) );
+
+    // for the 2nd & 3rd branch
+	EXPECT_EQ( 20121130, nextdate(2012, NOV, 29) );
+	EXPECT_EQ( 20140101, nextdate(2013, DEC, 31) );
+}
